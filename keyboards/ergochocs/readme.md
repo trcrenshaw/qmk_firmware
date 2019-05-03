@@ -4,7 +4,9 @@ ErgoChocs
 A split low profile ergo keboard.
 
 Keyboard Maintainer: [Tim Crenshaw](https://github.com/trcrenshaw)
-Hardware Supported: Pro Micro  
+
+Hardware Supported: Pro Micro
+
 Hardware Availability: None. For gerber files con
 
 Make example for this keyboard (after setting up your build environment):
