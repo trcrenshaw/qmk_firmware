@@ -16,6 +16,8 @@
 #include QMK_KEYBOARD_H
 
 #define BASE 0
+#define SYMB 1
+#define FNKEYS 2
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -23,37 +25,103 @@ enum custom_keycodes {
   QMKURL
 };
 
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
 //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐  Left Hand
-    KC_EQL,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_LEFT,
+   KC_EQUAL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_EQUAL,
 //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-   KC_DELT,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_5,
+  KC_DELETE,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   OSL(1),
 //├────────┼────────┼────────┼────────┼────────┼────────┤        │
-   KC_BSPC,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+  KC_BSPACE,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
 //├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
-   KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
+  KC_LSHIFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
 //├────────┼────────┼────────┼────────┼────────┼────────┘   ┌────────┬────────┐
-    KC_GRV,  KC_QUOT, KC_LSFT, KC_LEFT, KC_RGHT,              KC_APP,  KC_LGUI,
+   KC_LCTRL,KC_LGUI,LALT(KC_LSHIFT),KC_LEFT,KC_RIGHT,        KC_TRNS, KC_TRNS,
 //└────────┴────────┴────────┴────────┴────────┘   ┌────────┼────────┼────────┤
-                                                     KC_SPC, KC_BSPC,  KC_HOME,
+                                                                      KC_HOME,
 //                                                 │        │        ├────────┤
-                                                                       KC_END,
+                                                    KC_SPACE,KC_ENTER, KC_END,
 //                                                 └────────┴────────┴────────┘
 // Right Hand  ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-                KC_RGHT,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINS,
+                KC_RIGHT,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINUS,
 //             ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-                  KC_6,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
+                 OSL(2),   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLASH,
 //             │        ├────────┼────────┼────────┼────────┼────────┼────────┤
-                           KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+                           KC_H,    KC_J,    KC_K,    KC_L, KC_SCOLON,KC_QUOTE,
 //             └────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-                           KC_N,    KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT,
+                           KC_N,    KC_M,  KC_COMMA, KC_DOT, KC_SLASH,KC_RSHIFT,
 //┌────────┬────────┐   └────────┼────────┼────────┼────────┼────────┼────────┤
-   KC_LALT,  KC_ESC,               KC_UP,  KC_DOWN,  KC_LBRC, KC_RBRC, KC_1,
+   KC_TRNS, KC_DELETE,            KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,  MO(1),
 //├────────┼────────┼────────┐   └────────┴────────┴────────┴────────┴────────┘
-   KC_PGUP,  KC_TAB,  KC_ENT,
+   KC_PGUP,
 //├────────┤        │        │
-   KC_PGDN
+  KC_PGDOWN,KC_BSPACE, MO(1)
+//└────────┴────────┴────────┘
+) ,
+  [SYMB] = LAYOUT(
+//┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐  Left Hand
+    KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_TRNS,
+//├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+   KC_TRNS, KC_EXLM,  KC_AT,  KC_LCBR, KC_RCBR, KC_PIPE, KC_TRNS,
+//├────────┼────────┼────────┼────────┼────────┼────────┤        │
+  KC_TRNS,  KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN, KC_GRAVE,
+//├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
+  KC_TRNS,  KC_PERC, KC_CIRC, KC_LBRC,KC_RBRC,  KC_TILD,
+//├────────┼────────┼────────┼────────┼────────┼────────┘   ┌────────┬────────┐
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,              KC_MNXT, KC_MNXT,
+//└────────┴────────┴────────┴────────┴────────┘   ┌────────┼────────┼────────┤
+                                                                      KC_VOLU,
+//                                                 │        │        ├────────┤
+                                                    KC_TRNS, KC_MPLY, KC_VOLD,
+//                                                 └────────┴────────┴────────┘
+// Right Hand  ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+                KC_TRNS,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+//             ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+                KC_TRNS,  KC_UP,    KC_7,    KC_8,    KC_9,  KC_ASTR,  KC_F12,
+//             │        ├────────┼────────┼────────┼────────┼────────┼────────┤
+                         KC_DOWN,   KC_4,    KC_5,    KC_6,  KC_PLUS, KC_TRNS,
+//             └────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+                         KC_AMPR,   KC_1,    KC_2,    KC_3,  KC_BSLS, KC_TRNS,
+//┌────────┬────────┐   └────────┼────────┼────────┼────────┼────────┼────────┤
+   KC_TRNS, KC_TRNS,              KC_TRNS,  KC_DOT,   KC_0,  KC_EQUAL,KC_TRNS,
+//├────────┼────────┼────────┐   └────────┴────────┴────────┴────────┴────────┘
+   KC_TRNS,
+//├────────┤        │        │
+   KC_TRNS, KC_TRNS, KC_TRNS
+//└────────┴────────┴────────┘
+) ,
+  [FNKEYS] = LAYOUT(
+//┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐  Left Hand
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+//├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+   KC_TRNS, KC_TRNS,   KC_F1,   KC_F2,  KC_F3,  KC_TRNS, KC_TRNS,
+//├────────┼────────┼────────┼────────┼────────┼────────┤        │
+   KC_TRNS, KC_TRNS,   KC_F4,   KC_F5,  KC_F6,  KC_TRNS, 
+//├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
+   KC_TRNS, KC_TRNS,   KC_F7,   KC_F8,  KC_F9,  KC_TRNS,
+//├────────┼────────┼────────┼────────┼────────┼────────┘   ┌────────┬────────┐
+   KC_TRNS, KC_TRNS,   KC_F10,  KC_F11, KC_F12,              KC_TRNS, KC_TRNS,
+//└────────┴────────┴────────┴────────┴────────┘   ┌────────┼────────┼────────┤
+                                                                      KC_TRNS,
+//                                                 │        │        ├────────┤
+                                                    KC_MEH,  KC_HYPR, KC_TRNS,
+//                                                 └────────┴────────┴────────┘
+// Right Hand  ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+//             ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+                KC_TRNS, KC_TRNS,  KC_F13,  KC_F14,  KC_F15, KC_TRNS, KC_TRNS,
+//             │        ├────────┼────────┼────────┼────────┼────────┼────────┤
+                         KC_TRNS,  KC_F16,  KC_F17,  KC_F18, KC_TRNS, KC_TRNS,
+//             └────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+                         KC_TRNS,  KC_F19,  KC_F20,  KC_F21, KC_TRNS, KC_TRNS,
+//┌────────┬────────┐   └────────┼────────┼────────┼────────┼────────┼────────┤
+   KC_TRNS, KC_TRNS,               KC_F22,  KC_F23,  KC_F24, KC_TRNS, KC_TRNS, 
+//├────────┼────────┼────────┐   └────────┴────────┴────────┴────────┴────────┘
+   KC_TRNS,                                
+//├────────┤        │        │
+   KC_TRNS, KC_HYPR,  KC_MEH  
 //└────────┴────────┴────────┘
 ) ,
 };
